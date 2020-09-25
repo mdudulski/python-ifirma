@@ -1,0 +1,15 @@
+IFIRMA_USER ='xxx@gmail.com'
+IFIRMA_INVOICE_KEY ='XXXXXXXXXXXXXXXX'
+IFIRMA_USER_KEY= 'ZZZZZZZZZZZZZZZZ'
+NET = 99999999.99
+POSITION_NAME ='work on the system sucks'
+INVOICE_LINK = '/xxx/xxxx/xxx/xxx/xxx/'
+CLIENT_NAME ='Microsoft'
+CLIENT_TAX_ID = "5270103391"
+CLIENT_CITY = 'Warszawa'
+CLIENT_POSTALCODE = '01-001'
+CLIENT_STREET = 'Złota 44'
+CLIENT_COUNTRY = 'Polska'
+DAY_OF_INVOICE = 23   # issue date can't be earlier than last invoice date
+PAYMENT_DAYS = 7
+FILE_NAME = 'Invoice Name'

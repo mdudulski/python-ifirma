@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import six
 import json
-import datetime
+from datetime import datetime
+import datetime as dt
 from time import strftime
 
 from python_ifirma.exceptions import PythonIfirmaExceptionFactory
@@ -69,14 +70,23 @@ class Position:
 
 
 class NewInvoiceParams:
-    def __init__(self, client, positions):
+    def __init__(self, client, positions,issue_date,payment_days):
         self.client = client
         self.positions = positions
-        self.issue_date = datetime.date.today()
+        self.issue_date = issue_date
+        self.payment_days = payment_days
 
     def __get_issue_date(self):
-        return strftime("%Y-%m-%d", self.issue_date.timetuple())
+        if self.issue_date is None:
+            return strftime("%Y-%m-%d", datetime.date.today().timetuple())
+        else:
+            return self.issue_date
 
+    def __get_payment_date(self):
+
+        date_object = datetime.strptime(self.issue_date, '%Y-%m-%d').date()
+        date_object= date_object + dt.timedelta(days=7)
+        return strftime("%Y-%m-%d", date_object.timetuple())
     def __get_total_price(self):
         return sum(
             [
@@ -88,18 +98,20 @@ class NewInvoiceParams:
 
     def get_request_data(self):
         return {
-            "Zaplacono": self.__get_total_price(),
-            "ZaplaconoNaDokumencie": self.__get_total_price(),
-            "LiczOd": "BRT",
+            "Zaplacono": 0,
+            "ZaplaconoNaDokumencie": 0,
+            "LiczOd": "NET",
             "DataWystawienia": self.__get_issue_date(),
             "DataSprzedazy": self.__get_issue_date(),
-            "FormatDatySprzedazy": "MSC",
-            "SposobZaplaty": "ELE",
+            "FormatDatySprzedazy": "DZN",
+            "TerminPlatnosci": self.__get_payment_date(),
+            "SposobZaplaty": "PRZ",
             "RodzajPodpisuOdbiorcy": "BPO",
             "WidocznyNumerGios": False,
             "Numer": None,
             "Pozycje": [position.get_dict() for position in self.positions],
             "Kontrahent": self.client.get_dict(),
+
         }
 
 
