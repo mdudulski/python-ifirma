@@ -6,3 +6,6 @@ dist
 
 # PyCharm
 .idea/*
+
+python_ifirma/config.py
+__pycache__

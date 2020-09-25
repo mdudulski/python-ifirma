@@ -119,7 +119,7 @@ class iFirmaAPI():
     @staticmethod
     def __execute_post_request(headers, request_content, url):
         response = requests.post(url, data=request_content, headers=headers)
-        response_dict = json.loads(response.content.decode("utf-8"), 'utf-8')
+        response_dict = json.loads(response.content.decode("utf-8"))
         if "response" not in response_dict:
             raise PythonIfirmaExceptionFactory.throw_exception_by_code(-1)
         real_response_content = response_dict["response"]
