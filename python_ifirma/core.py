@@ -161,7 +161,6 @@ class iFirmaAPI():
             "Content-type": "application/json; charset=UTF-8",
             "Authentication": self.__create_authentication_header_value(request_hash_text)
         }
-
         response_dict = self.__execute_post_request(headers, request_content, url)
 
         if response_dict["response"].get("Identyfikator"):
@@ -172,9 +171,12 @@ class iFirmaAPI():
 
     def generate_invoice(self, invoice):
         url = "https://www.ifirma.pl/iapi/fakturakraj.json"
+
         invoice_id = self.__create_invoice_and_return_id(invoice, url)
         if invoice_id:
+
             invoice_number = self.__get_invoice_number(invoice_id)
+
             return invoice_id, invoice_number
         return None, None
 
@@ -215,3 +217,5 @@ class iFirmaAPI():
         file_obj.write(content)
         file_obj.seek(0)
         return file_obj
+
+

@@ -8,4 +8,5 @@ dist
 .idea/*
 
 python_ifirma/config.py
+python_ifirma/invoice_config.json
 __pycache__
